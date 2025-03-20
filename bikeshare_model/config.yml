@@ -1,0 +1,128 @@
+# Data Files
+training_data_file: bike-sharing-dataset.csv
+# test_data_file: test.csv
+
+# Variables
+# The variable we are attempting to predict (Survival)
+target: cnt
+
+pipeline_name: bikeshare_model
+pipeline_save_file: bikeshare__model_output_v
+
+features:      # final features to be use
+  - season
+  - hr 
+  - holiday 
+  - workingday
+  - weathersit  
+  - temp  
+  - atemp
+  - hum
+  - windspeed
+  - yr
+  - mnth
+  - weekday
+  - dteday
+  - casual
+  - registered
+
+
+unused_fields:  # Features to drop before pipeline
+  - dteday
+# - casual     r2 square dropping if including these two
+#  - registered
+
+# Features inside processing pipeline
+
+dteday_var: dteday
+
+weekday_var: weekday
+
+weathersit_var: weathersit
+
+weathersit_mappings:
+  Heavy Rain: 4
+  Light Rain: 3
+  Mist: 2
+  Clear: 1
+
+year_var: yr
+
+year_mappings:
+  2011: 0
+  2012: 1
+
+month_var: mnth
+
+month_mapping:
+  January: 0
+  February: 1
+  March: 2
+  April: 3
+  May: 4
+  June: 5
+  July: 6
+  August: 7
+  September: 8
+  October: 9
+  November: 10
+  December: 11
+
+season_var: season
+
+season_mappings:
+  spring: 1
+  winter: 4
+  summer: 2
+  fall: 3
+
+holiday_var: holiday
+
+holiday_mapping:
+  Yes: 0
+  No: 1
+
+workingday_var: workingday
+
+workingday_mapping:
+  Yes: 0
+  No: 1
+
+hour_var: hr
+
+hour_mapping:
+  12am: 0
+  1am: 1
+  2am: 2
+  3am: 3
+  4am: 4
+  5am: 5
+  6am: 6
+  7am: 7
+  8am: 8
+  9am: 9
+  10am: 10
+  11am: 11
+  12pm: 12
+  1pm: 13
+  2pm: 14
+  3pm: 15
+  4pm: 16
+  5pm: 17
+  6pm: 18
+  7pm: 19
+  8pm: 20
+  9pm: 21
+  10pm: 22
+  11pm: 23
+
+  
+# set train/test split
+test_size: 0.20
+
+# to set the random seed
+random_state: 42
+# alogrithm parameters
+n_estimators: 300
+max_depth: 10
+max_features: 3
