@@ -29,3 +29,82 @@ jobs:
       - name: Test with pytest
         run: |
           pytest
+
+# name: Python Package with Docker Deployment
+
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Set up Python 3.12
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: "3.12"
+
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install -r requirements/test_requirements.txt
+
+#       - name: Train model
+#         run: |
+#           python bikeshare_model/train_pipeline.py
+
+#       - name: Run tests
+#         run: |
+#           pytest
+
+#       - name: Build Python Package
+#         run: |
+#           pip install build
+#           python -m build
+
+#       - name: Upload Wheel Package as Artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: wheel-package
+#           path: dist/*.whl
+
+#   docker:
+#     runs-on: ubuntu-latest
+#     needs: build
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Set up Docker
+#         uses: docker/setup-buildx-action@v3
+
+#       - name: Log in to DockerHub
+#         uses: docker/login-action@v3
+#         with:
+#           username: ${{ secrets.DOCKERHUB_USER }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+#       - name: Download Wheel Package Artifact
+#         uses: actions/download-artifact@v4
+#         with:
+#           name: wheel-package
+#           path: bike_sharing_api
+
+#       - name: Build Docker image
+#         run: |
+#           IMAGE_TAG="${{ secrets.DOCKERHUB_USER }}/bikesharing_api:${{ github.run_number }}"
+#           echo "Building Docker Image: $IMAGE_TAG"
+#           docker build -t $IMAGE_TAG bike_sharing_api
+
+#       - name: Push Docker image to DockerHub
+#         run: |
+#           IMAGE_TAG="${{ secrets.DOCKERHUB_USER }}/bikesharing_api:${{ github.run_number }}"
+#           echo "Pushing Docker Image: $IMAGE_TAG"
+#           docker push $IMAGE_TAG
+
